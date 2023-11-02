@@ -3,13 +3,12 @@ package org.example.model;
 import org.example.model.fill.Fill;
 import org.example.model.fill.FillBehavior;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 
-public class MyShape {
+public class MyShape implements Cloneable{
     private Color color;
     private RectangularShape shape;
     private FillBehavior fb;
@@ -52,8 +51,21 @@ public class MyShape {
         shape.setFrameFromDiagonal(pd[0], pd[1]);
     }
 
-    void draw(Graphics2D g) {
+    public void draw(Graphics2D g) {
+        Paint paint = g.getPaint();
+        g.setColor(color);
+        fb.serShape(shape);
         fb.draw(g);
-
+        g.setPaint(paint);
     }
+
+    @Override
+    public MyShape clone() {
+        MyShape clone = new MyShape();
+        clone.color = this.color;
+        clone.fb = this.fb;
+        clone.setShape((RectangularShape) this.shape.clone());
+        return clone;
+    }
+
 }
