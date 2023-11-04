@@ -1,4 +1,4 @@
-package org.example.model.fill;
+package org.example.model.shape.fill;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -8,10 +8,6 @@ public class Fill implements FillBehavior {
 
     private Color color;
     private RectangularShape shape;
-
-    public Fill() {
-
-    }
 
     @Override
     public void setColor(Color color) {

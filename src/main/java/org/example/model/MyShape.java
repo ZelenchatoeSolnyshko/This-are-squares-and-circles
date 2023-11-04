@@ -1,11 +1,11 @@
 package org.example.model;
 
-import org.example.model.fill.Fill;
-import org.example.model.fill.FillBehavior;
+import org.example.model.shape.fill.Fill;
+import org.example.model.shape.fill.FillBehavior;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 
 public class MyShape implements Cloneable{
@@ -13,17 +13,18 @@ public class MyShape implements Cloneable{
     private RectangularShape shape;
     private FillBehavior fb;
 
-    public MyShape(RectangularShape shape) {
+    public void setShape(RectangularShape shape) {
         this.shape = shape;
-        color = Color.GRAY;
-        fb = new Fill();
-        fb.setColor(color);
         fb.serShape(shape);
+    }
+
+    public void setFrame(Point2D[] pd) {
+        shape.setFrameFromDiagonal(pd[0], pd[1]);
     }
 
     public MyShape() {
         color = Color.BLUE;
-        shape = new Rectangle2D.Double();
+        shape = new Ellipse2D.Double();
         fb = new Fill();
         fb.setColor(color);
         fb.serShape(shape);
@@ -37,24 +38,11 @@ public class MyShape implements Cloneable{
         this.fb.setColor(color);
     }
 
-    public void setFb(FillBehavior fb) {
-        this.fb = fb;
-        fb.serShape(shape);
-        fb.setColor(color);
-    }
-
-    public void setShape(RectangularShape shape) {
-        this.shape = shape;
-    }
-
-    public void setFrame(Point2D[] pd) {
-        shape.setFrameFromDiagonal(pd[0], pd[1]);
-    }
-
     public void draw(Graphics2D g) {
         Paint paint = g.getPaint();
         g.setColor(color);
         fb.serShape(shape);
+        fb.setColor(color);
         fb.draw(g);
         g.setPaint(paint);
     }
@@ -68,4 +56,7 @@ public class MyShape implements Cloneable{
         return clone;
     }
 
+    public RectangularShape getShape() {
+        return shape;
+    }
 }

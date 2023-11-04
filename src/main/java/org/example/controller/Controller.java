@@ -1,48 +1,41 @@
 package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
+import org.example.controller.menu.MenuController;
+import org.example.controller.menu.MenuObserver;
+import org.example.controller.menu.Subscriber;
 import org.example.model.Model;
 import org.example.model.MyShape;
-import org.example.model.fill.NoFill;
+import org.example.model.shape.factory.ShapeType;
+import org.example.model.shape.fill.FillBehavior;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
-public class Controller {
+@Component
+public class Controller implements Subscriber {
     private Model model;
     private MyFrame frame;
     private MyPanel panel;
-    private Point2D [] pd;
     private MyShape shape;
-
     private ActionDraw actionDraw;
+    private MenuController menuController;
 
-    public Controller() {
-        model = new Model();
-        shape = new MyShape(Color.CYAN, new Rectangle2D.Double(), new NoFill());
+    private MenuObserver menuObserver;
 
-        panel = new MyPanel();
-        panel.setController(this);
-
+    @PostConstruct
+    public void init() {
         model.addObserver(panel);
-
-        frame = new MyFrame();
         frame.setPanel(panel);
-
-        actionDraw = new ActionDraw(model);
+        frame.setJMenuBar(menuController.createMenuBar());
+        frame.revalidate();
+        shape = createShapeWithParameters();
         actionDraw.setSampleShape(shape);
-
-        pd = new Point2D[2];
-    }
-    public void getPointOne(Point2D p){
-        pd[0] = p;
-    }
-    public void getPointTwo(Point2D p){
-        pd[1] = p;
-        model.changeShape(pd);
+        menuObserver.addSubscriber(this);
     }
 
     public void mousePressed(Point point) {
@@ -57,7 +50,42 @@ public class Controller {
         model.getList().forEach(myShape -> myShape.draw(graphics));
     }
 
-    public void draw(Graphics2D g2) {
-        model.draw(g2);
+    public MyShape createShapeWithParameters() {
+        Color color = menuController.getSelectedColor();
+        FillBehavior fillBehavior = menuController.getSelectedFill();
+        ShapeType shapeType = menuController.getSelectedShape();
+        return shapeType.createMyShape(color, fillBehavior);
+    }
+
+    @Override
+    public void notifyUpdate() {
+        this.shape = createShapeWithParameters();
+        actionDraw.setSampleShape(shape);
+        model.changeShape();
+    }
+
+    @Autowired
+    public void setModel(Model model) {
+        this.model = model;
+    }
+    @Autowired
+    public void setFrame(MyFrame frame) {
+        this.frame = frame;
+    }
+    @Autowired
+    public void setPanel(MyPanel panel) {
+        this.panel = panel;
+    }
+    @Autowired
+    public void setActionDraw(ActionDraw actionDraw) {
+        this.actionDraw = actionDraw;
+    }
+    @Autowired
+    public void setMenuController(MenuController menuController) {
+        this.menuController = menuController;
+    }
+    @Autowired
+    public void setMenuObserver(MenuObserver menuObserver) {
+        this.menuObserver = menuObserver;
     }
 }
