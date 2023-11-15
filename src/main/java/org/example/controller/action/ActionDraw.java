@@ -4,11 +4,12 @@ import org.example.model.Model;
 import org.example.model.MyShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import java.awt.*;
 import java.awt.geom.Point2D;
-@Component
+@Controller
 public class ActionDraw {
     private MyShape sampleShape;
     private MyShape shape;

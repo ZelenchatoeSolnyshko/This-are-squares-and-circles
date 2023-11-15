@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.awt.*;
 
-@Component
+@org.springframework.stereotype.Controller
 public class Controller implements Subscriber {
     private Model model;
     private MyFrame frame;

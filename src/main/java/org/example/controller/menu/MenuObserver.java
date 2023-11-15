@@ -1,12 +1,12 @@
 package org.example.controller.menu;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Controller
 public class MenuObserver {
     private Set<Subscriber> subscribers;
 

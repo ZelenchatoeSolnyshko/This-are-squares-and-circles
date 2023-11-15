@@ -7,11 +7,12 @@ import org.example.model.shape.fill.FillBehavior;
 import org.example.model.shape.fill.NoFill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
 import java.awt.*;
 
-@Component
+@Controller
 public class MenuController {
 
     private Color selectedColor;
@@ -127,6 +128,22 @@ public class MenuController {
         return fillMenu;
     }
 
+    private JMenu createSaveLoadMenu() {
+        JMenu saveLoadMenu = new JMenu("Файл");
+        JMenuItem menuSaveItem = new JMenuItem("Сохранить");
+        menuSaveItem.addActionListener(e -> {
+
+        });
+        JMenuItem menuLoadItem = new JMenuItem("Загрузить");
+        menuLoadItem.addActionListener(e -> {
+
+        });
+        saveLoadMenu.add(menuSaveItem);
+        saveLoadMenu.add(menuLoadItem);
+
+        return saveLoadMenu;
+    }
+
     public void defaultState() {
         selectedColor = Color.CYAN;
         selectedFill = new NoFill();
@@ -144,6 +161,9 @@ public class MenuController {
 
         JMenu shapeMenu = createShapeMenu();
         menu.add(shapeMenu);
+
+        JMenu saveLoadMenu = createSaveLoadMenu();
+        menu.add(saveLoadMenu);
 
         defaultState();
 
