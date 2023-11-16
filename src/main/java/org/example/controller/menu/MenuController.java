@@ -1,12 +1,12 @@
 package org.example.controller.menu;
 
+import org.example.controller.SaveLoadController;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.ShapeType;
 import org.example.model.shape.fill.Fill;
 import org.example.model.shape.fill.FillBehavior;
 import org.example.model.shape.fill.NoFill;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
@@ -21,6 +21,7 @@ public class MenuController {
     private ShapeType selectedShape;
 
     private MenuObserver observer;
+    private SaveLoadController controller;
 
     @Autowired
     public void setObserver(MenuObserver observer) {
@@ -130,14 +131,13 @@ public class MenuController {
 
     private JMenu createSaveLoadMenu() {
         JMenu saveLoadMenu = new JMenu("Файл");
+
         JMenuItem menuSaveItem = new JMenuItem("Сохранить");
-        menuSaveItem.addActionListener(e -> {
+        menuSaveItem.addActionListener(e -> controller.save());
 
-        });
         JMenuItem menuLoadItem = new JMenuItem("Загрузить");
-        menuLoadItem.addActionListener(e -> {
+        menuLoadItem.addActionListener(e -> controller.load());
 
-        });
         saveLoadMenu.add(menuSaveItem);
         saveLoadMenu.add(menuLoadItem);
 
@@ -168,5 +168,10 @@ public class MenuController {
         defaultState();
 
         return menu;
+    }
+
+    @Autowired
+    public void setController(SaveLoadController controller) {
+        this.controller = controller;
     }
 }

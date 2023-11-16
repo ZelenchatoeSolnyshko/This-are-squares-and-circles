@@ -8,9 +8,11 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
-public class MyShape implements Cloneable{
+
+public class MyShape implements Cloneable {
     private Color color;
     private RectangularShape shape;
+
     private FillBehavior fb;
 
     public void setShape(RectangularShape shape) {

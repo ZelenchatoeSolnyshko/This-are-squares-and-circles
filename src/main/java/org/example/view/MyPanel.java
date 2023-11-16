@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.controller.Controller;
+import org.example.controller.observer.PanelSubscriber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,13 +10,11 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.Observable;
-import java.util.Observer;
 import javax.annotation.PostConstruct;
 import javax.swing.JPanel;
 
 @Component
-public class MyPanel extends JPanel implements Observer {
+public class MyPanel extends JPanel implements PanelSubscriber {
     private Controller controller;
 
     @Autowired
@@ -49,8 +48,7 @@ public class MyPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update() {
         repaint();
     }
-
 }

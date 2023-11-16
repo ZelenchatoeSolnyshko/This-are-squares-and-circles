@@ -10,8 +10,8 @@ import org.example.model.shape.factory.ShapeType;
 import org.example.model.shape.fill.FillBehavior;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
+import org.example.controller.observer.PanelObserver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.awt.*;
@@ -27,15 +27,17 @@ public class Controller implements Subscriber {
 
     private MenuObserver menuObserver;
 
+    private PanelObserver panelObserver;
+
     @PostConstruct
     public void init() {
-        model.addObserver(panel);
         frame.setPanel(panel);
         frame.setJMenuBar(menuController.createMenuBar());
         frame.revalidate();
         shape = createShapeWithParameters();
         actionDraw.setSampleShape(shape);
         menuObserver.addSubscriber(this);
+        panelObserver.addSubscriber(panel);
     }
 
     public void mousePressed(Point point) {
@@ -87,5 +89,9 @@ public class Controller implements Subscriber {
     @Autowired
     public void setMenuObserver(MenuObserver menuObserver) {
         this.menuObserver = menuObserver;
+    }
+    @Autowired
+    public void setPanelObserver(PanelObserver panelObserver) {
+        this.panelObserver = panelObserver;
     }
 }
