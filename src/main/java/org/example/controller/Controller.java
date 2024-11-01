@@ -10,8 +10,17 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-// TODO: 24.10.2024 Сделать singleton класс
 public class Controller {
+    private static Controller instanse;
+
+    public static Controller getInstanse() {
+        if(instanse == null)
+        {
+            instanse = new Controller();
+        }
+        return instanse;
+    }
+
     private Model model;
     private MyFrame frame;
     private MyPanel panel;
