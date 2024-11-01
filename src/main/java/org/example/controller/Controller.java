@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.model.fill.Fill;
 import org.example.model.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
@@ -29,13 +30,11 @@ public class Controller {
     public Controller() {
         model = new Model();
         MyShape shape = new MyShape(new Rectangle2D.Double());
-        shape.setFb(new NoFill());
-        model.setMyShape(shape);
-
-        panel = new MyPanel(this);
-        // TODO: 25.10.2024 Поменять наблюдатель на более современную реализацию
+        Fill fill = new Fill();
+        shape.setFb(fill);
+        ActionDraw actionDraw = new ActionDraw(model, shape);
+        MyPanel panel = new MyPanel(this, actionDraw);
         model.addObserver(panel);
-
         frame = new MyFrame();
         frame.setPanel(panel);
     }
@@ -44,7 +43,6 @@ public class Controller {
     }
     public void getPointTwo(Point2D p){
         secondPoint = p;
-        model.changeShape(firstPoint, secondPoint);
     }
 
     public void draw(Graphics2D g2) {
