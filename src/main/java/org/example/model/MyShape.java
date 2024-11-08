@@ -1,7 +1,8 @@
 package org.example.model;
 
-import org.example.model.fill.Fill;
-import org.example.model.fill.FillBehavior;
+import org.example.model.shape.fill.Fill;
+import org.example.model.shape.fill.FillBehavior;
+import org.example.model.shape.fill.NoFill;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,9 +15,9 @@ public class MyShape implements Cloneable{
     private RectangularShape shape;
     private FillBehavior fb;
 
-    public MyShape(RectangularShape shape) {
+    public MyShape(RectangularShape shape, Color color) {
         this.shape = shape;
-        color = Color.cyan; //цвЯточек
+        this.color = color;
         fb = new Fill();
         fb.setColor(color);
         fb.setShape(shape);
@@ -32,13 +33,13 @@ public class MyShape implements Cloneable{
     }
 
     // TODO: 25.10.2024  Попробовать вызовы через разные конструкторы, затем переделать создание через фабрику
-    public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
+    /*public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
         this.color = color;
         this.shape = shape;
         this.fb = fb;
         this.fb.setShape(shape);
         this.fb.setColor(color);
-    }
+    }*/
 
     public void setFb(FillBehavior fb) {
         this.fb = fb;
@@ -60,11 +61,11 @@ public class MyShape implements Cloneable{
     }
     @Override
     public MyShape clone() {
-        MyShape clone = new MyShape();
+        MyShape clone = new MyShape(shape.getBounds(), color);
         clone.fb = fb.clone();
-        RectangularShape another = (RectangularShape) shape.clone();
+        /*RectangularShape another = (RectangularShape) shape.clone();
         clone.setShape(another);
-        clone.fb.setShape(another);
+        clone.fb.setShape(another);*/
         return clone;
     }
 }
