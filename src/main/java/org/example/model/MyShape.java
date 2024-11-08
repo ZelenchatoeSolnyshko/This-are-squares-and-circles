@@ -16,7 +16,7 @@ public class MyShape implements Cloneable{
 
     public MyShape(RectangularShape shape) {
         this.shape = shape;
-        color = Color.GRAY;
+        color = Color.cyan; //цвЯточек
         fb = new Fill();
         fb.setColor(color);
         fb.setShape(shape);

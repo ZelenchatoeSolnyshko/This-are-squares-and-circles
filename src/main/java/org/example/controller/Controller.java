@@ -27,22 +27,25 @@ public class Controller {
     private MyPanel panel;
     private Point2D firstPoint;
     private Point2D secondPoint;
+    private ActionDraw action;
+
     public Controller() {
         model = new Model();
-        MyShape shape = new MyShape(new Rectangle2D.Double());
+        MyShape sampleShape = new MyShape(new Rectangle2D.Double());
         Fill fill = new Fill();
-        shape.setFb(fill);
-        ActionDraw actionDraw = new ActionDraw(model, shape);
-        MyPanel panel = new MyPanel(this, actionDraw);
+        fill.setColor(Color.cyan);
+        sampleShape.setFb(fill);
+        action = new ActionDraw(model, sampleShape);
+        MyPanel panel = new MyPanel(this, action);
         model.addObserver(panel);
         frame = new MyFrame();
         frame.setPanel(panel);
     }
     public void getPointOne(Point2D p){
-        firstPoint = p;
+        action.createShape((Point) p);
     }
     public void getPointTwo(Point2D p){
-        secondPoint = p;
+        action.stretchShape((Point) p);
     }
 
     public void draw(Graphics2D g2) {
