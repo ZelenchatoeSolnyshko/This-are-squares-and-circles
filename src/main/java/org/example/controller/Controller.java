@@ -44,6 +44,7 @@ public class Controller {
         Menu menuController = Menu.getInstance();
         menuController.setActionDraw(action);
         frame.setJMenuBar(menuController.createMenuBar());
+        frame.revalidate();
     }
     public void getPointOne(Point2D p){
         action.createShape((Point) p);

@@ -2,6 +2,8 @@ package org.example.controller;
 
 
 import org.example.model.MyShape;
+import org.example.model.shape.factory.MenuState;
+import org.example.model.shape.factory.ShapeType;
 
 import javax.swing.*;
 import java.awt.geom.Ellipse2D;
@@ -12,6 +14,7 @@ public class Menu {
     private static Menu instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
+    private MenuState state;
     private Menu(){
         menuBar = createMenuBar();
     }
@@ -36,17 +39,17 @@ public class Menu {
         ButtonGroup group = new ButtonGroup();
         //поменять на фабрику
         JRadioButtonMenuItem square = new JRadioButtonMenuItem("Прямоугольник");
-        square.addActionListener(e -> {
-            MyShape sampleShape = actionDraw.getShape();
+        square.addActionListener(e -> state.setType(ShapeType.RECTANGLE));
+        /*    MyShape sampleShape = actionDraw.getShape();
             sampleShape.setShape(new Rectangle2D.Double());
-        });
+        });*/
         shapeMenu.add(square);
         group.add(square);
         JRadioButtonMenuItem ellipse = new JRadioButtonMenuItem("Эллипс");
-        ellipse.addActionListener(e -> {
-            MyShape sampleShape = actionDraw.getShape();
+        ellipse.addActionListener(e -> state.setType(ShapeType.ELLIPSE));
+       /*     MyShape sampleShape = actionDraw.getShape();
             sampleShape.setShape(new Ellipse2D.Double());
-        });
+        });*/
         shapeMenu.add(ellipse);
         group.add(ellipse);
         return shapeMenu;
