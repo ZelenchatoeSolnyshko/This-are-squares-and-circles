@@ -3,32 +3,48 @@ package org.example.controller;
 import lombok.Getter;
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.model.shape.factory.MyShapeFactory;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public class ActionDraw {
+public class ActionDraw implements AppAction {
     private MyShape sampleShape;
-    @Getter
-    private MyShape shape;
+
     private Point2D firstPoint;
     private Point2D secondPoint;
     private Model model;
+    private MyShapeFactory factory;
 
-    public ActionDraw(Model model, MyShape shape) {
+    public ActionDraw(Model model) {
         this.model = model;
-        this.shape = shape;
+        this.factory = factory.getInstance();
     }
 
     public void stretchShape(Point point) {
         secondPoint = point;
-        shape.setFrame(firstPoint, secondPoint);
+        sampleShape.setFrame(firstPoint, secondPoint);
         model.update();
     }
     public void createShape(Point point) {
         firstPoint = point;
-        shape = shape.clone();
-        model.createCurrentShape(shape);
+        sampleShape = factory.createShape();
+        model.createCurrentShape(sampleShape.clone());
+        model.update();
+    }
+
+    @Override
+    public void mousePressed(Point2D point) {
+        secondPoint = point;
+        sampleShape = factory.createShape();
+        model.addCurrentShape(sampleShape);
+        model.update();
+    }
+
+    @Override
+    public void mouseDragged(Point2D point) {
+        firstPoint = point;
+        sampleShape.setFrame(firstPoint, secondPoint);
         model.update();
     }
 }

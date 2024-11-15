@@ -8,7 +8,7 @@ import java.awt.geom.RectangularShape;
 import java.awt.Color;
 
 public enum ShapeType {
-    RECTANGLE{
+    RECTANGULAR{
         @Override
         public RectangularShape createShape() {
             return new Rectangle2D.Double();

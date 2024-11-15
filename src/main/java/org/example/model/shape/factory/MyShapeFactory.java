@@ -20,6 +20,10 @@ public class MyShapeFactory {
         }
         return instance;
     }
+    public void config(MenuState state)
+    {
+        this.state = state;
+    }
     public MyShape createShape()
     {
         MyShape newS = new MyShape();

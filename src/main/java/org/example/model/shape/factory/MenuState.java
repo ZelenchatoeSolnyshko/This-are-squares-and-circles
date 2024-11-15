@@ -3,12 +3,19 @@ package org.example.model.shape.factory;
 import org.example.controller.ActionDraw;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class MenuState {
     private boolean fill;
     private Color color;
     private ShapeType type;
     private ActionDraw action;
+
+    public MenuState() {
+        color = Color.cyan;
+        type = ShapeType.RECTANGULAR;
+    }
 
     public boolean isFill() {
         return fill;

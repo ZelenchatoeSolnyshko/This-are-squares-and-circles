@@ -2,6 +2,8 @@ package org.example.controller;
 
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.model.shape.factory.MenuState;
+import org.example.model.shape.factory.MyShapeFactory;
 import org.example.model.shape.fill.Fill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
@@ -30,27 +32,40 @@ public class Controller {
     private Point2D secondPoint;
     private ActionDraw action;
 
+    /*public MenuState getState() {
+        return state;
+
+}
+
+    public void setState(MenuState state) {
+        this.state = state;
+    }*/
+    private MenuState menu;
+
     public Controller() {
+        menu = new MenuState();
+        MyShapeFactory sFactory = MyShapeFactory.getInstance();
+        sFactory.config(menu);
         model = new Model();
-        MyShape sampleShape = new MyShape();
-        Fill fill = new Fill();
-        fill.setColor(Color.cyan);
-        sampleShape.setFb(fill);
-        action = new ActionDraw(model, sampleShape);
+        /*m
+        menu.setAction(new ActionDraw(model));
         MyPanel panel = new MyPanel(this, action);
         model.addObserver(panel);
         frame = new MyFrame();
-        frame.setPanel(panel);
+        frame.setPanel(panel);*/
         Menu menuController = Menu.getInstance();
-        menuController.setActionDraw(action);
+        menuController.setState(menu);
+        menuController.setModel(model);
         frame.setJMenuBar(menuController.createMenuBar());
         frame.revalidate();
     }
     public void getPointOne(Point2D p){
-        action.createShape((Point) p);
+        ActionDraw action = menu.getAction();
+        action.mousePressed((Point) p);
     }
     public void getPointTwo(Point2D p){
-        action.stretchShape((Point) p);
+        ActionDraw action = menu.getAction();
+        action.mouseDragged((Point) p);
     }
 
     public void draw(Graphics2D g2) {

@@ -1,6 +1,8 @@
 package org.example.controller;
 
 
+import lombok.Setter;
+import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.MenuState;
 import org.example.model.shape.factory.ShapeType;
@@ -14,6 +16,26 @@ public class Menu {
     private static Menu instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    private Model model;
+
+    public MenuState getState() {
+        return state;
+    }
+
+    public void setState(MenuState state) {
+        this.state = state;
+    }
+
+    @Setter
     private MenuState state;
     private Menu(){
         menuBar = createMenuBar();
@@ -39,7 +61,7 @@ public class Menu {
         ButtonGroup group = new ButtonGroup();
         //поменять на фабрику
         JRadioButtonMenuItem square = new JRadioButtonMenuItem("Прямоугольник");
-        square.addActionListener(e -> state.setType(ShapeType.RECTANGLE));
+        square.addActionListener(e -> state.setType(ShapeType.RECTANGULAR));
         /*    MyShape sampleShape = actionDraw.getShape();
             sampleShape.setShape(new Rectangle2D.Double());
         });*/
