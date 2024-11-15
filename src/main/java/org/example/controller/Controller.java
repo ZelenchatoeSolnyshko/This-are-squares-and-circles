@@ -41,6 +41,9 @@ public class Controller {
         model.addObserver(panel);
         frame = new MyFrame();
         frame.setPanel(panel);
+        Menu menuController = Menu.getInstance();
+        menuController.setActionDraw(action);
+        frame.setJMenuBar(menuController.createMenuBar());
     }
     public void getPointOne(Point2D p){
         action.createShape((Point) p);

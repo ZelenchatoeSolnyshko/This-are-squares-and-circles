@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import lombok.Getter;
 import org.example.model.Model;
 import org.example.model.MyShape;
 
@@ -8,6 +9,7 @@ import java.awt.geom.Point2D;
 
 public class ActionDraw {
     private MyShape sampleShape;
+    @Getter
     private MyShape shape;
     private Point2D firstPoint;
     private Point2D secondPoint;
@@ -29,5 +31,4 @@ public class ActionDraw {
         model.createCurrentShape(shape);
         model.update();
     }
-
 }
