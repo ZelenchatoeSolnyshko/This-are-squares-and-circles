@@ -30,7 +30,6 @@ public class Controller extends MenuState {
     private MyPanel panel;
     private Point2D firstPoint;
     private Point2D secondPoint;
-    private ActionDraw action;
     private MyShape sampleShape;
 
     /*public MenuState getState() {
@@ -48,22 +47,23 @@ public class Controller extends MenuState {
         MyShapeFactory sFactory = MyShapeFactory.getInstance();
         sFactory.config(menu);
         model = new Model();
-        action = new ActionDraw(model, sampleShape);
-        menu.setAction(action);
+        menu.setAction(new ActionDraw(model, sampleShape));
         MyPanel panel = new MyPanel(this);
         model.addObserver(panel);
         frame = new MyFrame();
         frame.setPanel(panel);
         Menu menuController = Menu.getInstance();
         menuController.setState(menu);
-        menuController.setActionDraw(action);
+        menuController.setModel(model);
         frame.setJMenuBar(menuController.createMenuBar());
         frame.revalidate();
     }
     public void getPointOne(Point2D p){
+        AppAction action = menu.getAction();
         action.mousePressed(p);
     }
     public void getPointTwo(Point2D p){
+        AppAction action = menu.getAction();
         action.mouseDragged(p);
     }
 

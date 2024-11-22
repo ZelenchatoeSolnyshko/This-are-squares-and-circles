@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import lombok.Getter;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.MyShapeFactory;

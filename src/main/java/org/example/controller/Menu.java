@@ -15,8 +15,25 @@ import java.awt.geom.Rectangle2D;
 public class Menu extends MenuState {
     private static Menu instance;
     private JMenuBar menuBar;
-    private ActionDraw actionDraw;
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
     private Model model;
+
+    public MyShape getShape() {
+        return shape;
+    }
+
+    public void setShape(MyShape shape) {
+        this.shape = shape;
+    }
+
     private MyShape shape;
 
 
@@ -43,8 +60,12 @@ public class Menu extends MenuState {
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = createShapeMenu();
         JMenu colorMenu = createColorMenu();
+        JMenu actionMenu = createActionMenu();
+        JMenu fillMenu = createFillMenu();
         menuBar.add(shapeMenu);
         menuBar.add(colorMenu);
+        menuBar.add(actionMenu);
+        menuBar.add(fillMenu);
 
         return menuBar;
     }
@@ -87,22 +108,45 @@ public class Menu extends MenuState {
         cyan.addActionListener(e -> state.setColor(Color.CYAN));
         colorMenu.add(cyan);
         group.add(cyan);
+        JRadioButtonMenuItem pink = new JRadioButtonMenuItem("Розовый");
+        pink.addActionListener(e -> state.setColor(Color.PINK));
+        colorMenu.add(pink);
+        group.add(pink);
+        JRadioButtonMenuItem black = new JRadioButtonMenuItem("Черный");
+        black.addActionListener(e -> state.setColor(Color.BLACK));
+        colorMenu.add(black);
+        group.add(black);
+        JRadioButtonMenuItem white = new JRadioButtonMenuItem("Белый");
+        white.addActionListener(e -> state.setColor(Color.WHITE));
+        colorMenu.add(white);
+        group.add(white);
         return colorMenu;
     }
     private JMenu createActionMenu() {
         JMenu actionMenu = new JMenu("Действие");
         ButtonGroup group = new ButtonGroup();
         JRadioButtonMenuItem move = new JRadioButtonMenuItem("Движение");
-        move.addActionListener(e -> state.setAction(new ActionDraw(model, shape)));
+        move.addActionListener(e -> state.setAction(new ActionMove(model)));
         actionMenu.add(move);
         group.add(move);
-        JRadioButtonMenuItem draw = new JRadioButtonMenuItem("Движение");
+        JRadioButtonMenuItem draw = new JRadioButtonMenuItem("Рисование");
         draw.addActionListener(e -> state.setAction(new ActionDraw(model, shape)));
         actionMenu.add(draw);
         group.add(draw);
+        return actionMenu;
+    }
+    private JMenu createFillMenu() {
+        JMenu fillMenu = new JMenu("Заливка");
+        ButtonGroup group = new ButtonGroup();
+        JRadioButtonMenuItem yes = new JRadioButtonMenuItem("Есть");
+        yes.addActionListener(e -> state.setFill(true));
+        fillMenu.add(yes);
+        group.add(yes);
+        JRadioButtonMenuItem no = new JRadioButtonMenuItem("Нет");
+        no.addActionListener(e -> state.setFill(false));
+        fillMenu.add(no);
+        group.add(no);
+        return fillMenu;
     }
 
-    public void setActionDraw(ActionDraw actionDraw) {
-        this.actionDraw = actionDraw;
-    }
 }

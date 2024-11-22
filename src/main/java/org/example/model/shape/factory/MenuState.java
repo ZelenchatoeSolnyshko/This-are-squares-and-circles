@@ -1,6 +1,7 @@
 package org.example.model.shape.factory;
 
 import org.example.controller.ActionDraw;
+import org.example.controller.AppAction;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -10,7 +11,7 @@ public class MenuState {
     private boolean fill;
     private Color color;
     private ShapeType type;
-    private ActionDraw action;
+    private AppAction action;
 
     public MenuState() {
         color = Color.cyan;
@@ -42,11 +43,11 @@ public class MenuState {
         this.type = type;
     }
 
-    public ActionDraw getAction() {
+    public AppAction getAction() {
         return action;
     }
 
-    public void setAction(ActionDraw action) {
+    public void setAction(AppAction action) {
         this.action = action;
     }
 }
