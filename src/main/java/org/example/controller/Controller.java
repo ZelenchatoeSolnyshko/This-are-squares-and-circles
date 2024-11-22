@@ -48,7 +48,7 @@ public class Controller extends MenuState {
         MyShapeFactory sFactory = MyShapeFactory.getInstance();
         sFactory.config(menu);
         model = new Model();
-        action = new ActionDraw(model);
+        action = new ActionDraw(model, sampleShape);
         menu.setAction(action);
         MyPanel panel = new MyPanel(this);
         model.addObserver(panel);

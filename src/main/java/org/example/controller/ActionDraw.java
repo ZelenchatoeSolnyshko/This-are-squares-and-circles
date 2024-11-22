@@ -16,8 +16,9 @@ public class ActionDraw implements AppAction {
     private Model model;
     private MyShapeFactory factory;
 
-    public ActionDraw(Model model) {
+    public ActionDraw(Model model, MyShape shape) {
         this.model = model;
+        this.sampleShape = shape;
         factory = factory.getInstance();
     }
 

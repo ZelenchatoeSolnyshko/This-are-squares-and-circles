@@ -19,6 +19,7 @@ public class ActionMove implements AppAction{
 
     @Override
     public void mousePressed(Point2D point) {
+        firstPoint = point;
         shape = model.getShapeList()
                 .stream()
                 .filter(myShape -> myShape.getShape().contains(point))
@@ -28,6 +29,7 @@ public class ActionMove implements AppAction{
 
     @Override
     public void mouseDragged(Point2D point) {
+        secondPoint = point;
         if (shape == null){
             return;
         }
@@ -47,5 +49,4 @@ public class ActionMove implements AppAction{
         firstPoint = secondPoint;
         model.update();
     }
-}
 }

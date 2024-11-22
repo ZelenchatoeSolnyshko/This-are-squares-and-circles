@@ -16,6 +16,9 @@ public class Menu extends MenuState {
     private static Menu instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
+    private Model model;
+    private MyShape shape;
+
 
 
     public MenuState getState() {
@@ -85,6 +88,18 @@ public class Menu extends MenuState {
         colorMenu.add(cyan);
         group.add(cyan);
         return colorMenu;
+    }
+    private JMenu createActionMenu() {
+        JMenu actionMenu = new JMenu("Действие");
+        ButtonGroup group = new ButtonGroup();
+        JRadioButtonMenuItem move = new JRadioButtonMenuItem("Движение");
+        move.addActionListener(e -> state.setAction(new ActionDraw(model, shape)));
+        actionMenu.add(move);
+        group.add(move);
+        JRadioButtonMenuItem draw = new JRadioButtonMenuItem("Движение");
+        draw.addActionListener(e -> state.setAction(new ActionDraw(model, shape)));
+        actionMenu.add(draw);
+        group.add(draw);
     }
 
     public void setActionDraw(ActionDraw actionDraw) {

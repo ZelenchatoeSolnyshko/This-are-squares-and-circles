@@ -12,24 +12,21 @@ import java.awt.geom.RectangularShape;
 import java.util.Collection;
 
 public class MyShape implements Cloneable{
-    private Color color;
-    private RectangularShape shape;
     private FillBehavior fb;
 
     public Color getColor() {
-        return color;
+        return fb.color();
     }
     public void setFb(FillBehavior fb) {
         this.fb = fb;
     }
 
     public void setShape(RectangularShape shape) {
-        this.shape = shape;
+        fb.setShape(shape);
     }
 
     public void setFrame(Point2D x, Point2D y) {
-
-        shape.setFrameFromDiagonal(x, y);
+        fb.shape().setFrameFromDiagonal(x, y);
     }
 
     void draw(Graphics2D g) {
@@ -40,13 +37,13 @@ public class MyShape implements Cloneable{
     public MyShape clone() {
         MyShape clone = new MyShape();
         clone.fb = fb.clone();
-        RectangularShape another = (RectangularShape) shape.clone();
+        RectangularShape another = (RectangularShape) fb.shape().clone();
         clone.setShape(another);
         clone.fb.setShape(another);
         return clone;
     }
 
-    public void getShape() {
-
+    public RectangularShape getShape() {
+        return fb.shape();
     }
 }
