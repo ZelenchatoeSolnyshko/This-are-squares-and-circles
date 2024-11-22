@@ -14,10 +14,10 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Ellipse2D;
 
-public class Controller {
+public class Controller extends MenuState {
     private static Controller instanse;
 
-    public static Controller getInstanse() {
+    public static synchronized Controller getInstanse() {
         if(instanse == null)
         {
             instanse = new Controller();
@@ -31,6 +31,7 @@ public class Controller {
     private Point2D firstPoint;
     private Point2D secondPoint;
     private ActionDraw action;
+    private MyShape sampleShape;
 
     /*public MenuState getState() {
         return state;
@@ -47,25 +48,23 @@ public class Controller {
         MyShapeFactory sFactory = MyShapeFactory.getInstance();
         sFactory.config(menu);
         model = new Model();
-        /*m
-        menu.setAction(new ActionDraw(model));
-        MyPanel panel = new MyPanel(this, action);
+        action = new ActionDraw(model);
+        menu.setAction(action);
+        MyPanel panel = new MyPanel(this);
         model.addObserver(panel);
         frame = new MyFrame();
-        frame.setPanel(panel);*/
+        frame.setPanel(panel);
         Menu menuController = Menu.getInstance();
         menuController.setState(menu);
-        menuController.setModel(model);
+        menuController.setActionDraw(action);
         frame.setJMenuBar(menuController.createMenuBar());
         frame.revalidate();
     }
     public void getPointOne(Point2D p){
-        ActionDraw action = menu.getAction();
-        action.mousePressed((Point) p);
+        action.mousePressed(p);
     }
     public void getPointTwo(Point2D p){
-        ActionDraw action = menu.getAction();
-        action.mouseDragged((Point) p);
+        action.mouseDragged(p);
     }
 
     public void draw(Graphics2D g2) {

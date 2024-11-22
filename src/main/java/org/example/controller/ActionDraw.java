@@ -18,7 +18,7 @@ public class ActionDraw implements AppAction {
 
     public ActionDraw(Model model) {
         this.model = model;
-        this.factory = factory.getInstance();
+        factory = factory.getInstance();
     }
 
     public void stretchShape(Point point) {

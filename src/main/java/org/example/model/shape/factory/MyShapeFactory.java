@@ -33,6 +33,7 @@ public class MyShapeFactory {
         fillBehavior.setShape(shape);
         fillBehavior.setColor(state.getColor());
         newS.setFb(fillBehavior);
+        newS.setShape(shape);
         return newS;
     }
 

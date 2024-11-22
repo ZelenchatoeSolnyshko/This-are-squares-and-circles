@@ -1,31 +1,22 @@
 package org.example.controller;
 
 
-import lombok.Setter;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.MenuState;
 import org.example.model.shape.factory.ShapeType;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 
-public class Menu {
+public class Menu extends MenuState {
     private static Menu instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
 
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    private Model model;
 
     public MenuState getState() {
         return state;
@@ -35,7 +26,6 @@ public class Menu {
         this.state = state;
     }
 
-    @Setter
     private MenuState state;
     private Menu(){
         menuBar = createMenuBar();
@@ -49,7 +39,9 @@ public class Menu {
     public JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = createShapeMenu();
+        JMenu colorMenu = createColorMenu();
         menuBar.add(shapeMenu);
+        menuBar.add(colorMenu);
 
         return menuBar;
     }
@@ -59,22 +51,40 @@ public class Menu {
 
         JMenu shapeMenu = new JMenu("Фигура");
         ButtonGroup group = new ButtonGroup();
-        //поменять на фабрику
         JRadioButtonMenuItem square = new JRadioButtonMenuItem("Прямоугольник");
         square.addActionListener(e -> state.setType(ShapeType.RECTANGULAR));
-        /*    MyShape sampleShape = actionDraw.getShape();
-            sampleShape.setShape(new Rectangle2D.Double());
-        });*/
         shapeMenu.add(square);
         group.add(square);
         JRadioButtonMenuItem ellipse = new JRadioButtonMenuItem("Эллипс");
         ellipse.addActionListener(e -> state.setType(ShapeType.ELLIPSE));
-       /*     MyShape sampleShape = actionDraw.getShape();
-            sampleShape.setShape(new Ellipse2D.Double());
-        });*/
         shapeMenu.add(ellipse);
         group.add(ellipse);
         return shapeMenu;
+    }
+    private JMenu createColorMenu() {
+        JMenu colorMenu = new JMenu("Цвет");
+        ButtonGroup group = new ButtonGroup();
+        JRadioButtonMenuItem blue = new JRadioButtonMenuItem("Синий");
+        blue.addActionListener(e -> state.setColor(Color.BLUE));
+        colorMenu.add(blue);
+        group.add(blue);
+        JRadioButtonMenuItem red = new JRadioButtonMenuItem("Красный");
+        red.addActionListener(e -> state.setColor(Color.RED));
+        colorMenu.add(red);
+        group.add(red);
+        JRadioButtonMenuItem orange = new JRadioButtonMenuItem("Оранжевый");
+        orange.addActionListener(e -> state.setColor(Color.ORANGE));
+        colorMenu.add(orange);
+        group.add(orange);
+        JRadioButtonMenuItem green = new JRadioButtonMenuItem("Зелёный");
+        green.addActionListener(e -> state.setColor(Color.GREEN));
+        colorMenu.add(green);
+        group.add(green);
+        JRadioButtonMenuItem cyan = new JRadioButtonMenuItem("Бирюзовый");
+        cyan.addActionListener(e -> state.setColor(Color.CYAN));
+        colorMenu.add(cyan);
+        group.add(cyan);
+        return colorMenu;
     }
 
     public void setActionDraw(ActionDraw actionDraw) {

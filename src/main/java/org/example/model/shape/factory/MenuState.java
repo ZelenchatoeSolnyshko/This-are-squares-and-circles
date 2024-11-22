@@ -15,6 +15,7 @@ public class MenuState {
     public MenuState() {
         color = Color.cyan;
         type = ShapeType.RECTANGULAR;
+        fill = false;
     }
 
     public boolean isFill() {
