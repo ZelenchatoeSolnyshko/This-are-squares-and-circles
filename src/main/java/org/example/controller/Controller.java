@@ -7,6 +7,7 @@ import org.example.model.shape.factory.MyShapeFactory;
 import org.example.model.shape.fill.Fill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
+import org.example.view.menu.MenuCreator;
 
 
 import java.awt.*;
@@ -52,10 +53,11 @@ public class Controller extends MenuState {
         model.addObserver(panel);
         frame = new MyFrame();
         frame.setPanel(panel);
-        Menu menuController = Menu.getInstance();
-        menuController.setState(menu);
-        menuController.setModel(model);
-        frame.setJMenuBar(menuController.createMenuBar());
+        MenuCreator menuCreator = MenuCreator.getInstance();
+        menuCreator.setState(menu);
+        menuCreator.setModel(model);
+        frame.setJMenuBar(menuCreator.createMenuBar());
+        frame.add(menuCreator.createToolBar(), BorderLayout.WEST);
         frame.revalidate();
     }
     public void getPointOne(Point2D p){
