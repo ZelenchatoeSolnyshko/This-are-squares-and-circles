@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.controller.state.UndoMachine;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.MenuState;
@@ -42,6 +43,7 @@ public class Controller extends MenuState {
         this.state = state;
     }*/
     private MenuState menu;
+    private UndoMachine machine;
 
     public Controller() {
         menu = new MenuState();
@@ -63,6 +65,8 @@ public class Controller extends MenuState {
     public void getPointOne(Point2D p){
         AppAction action = menu.getAction();
         action.mousePressed(p);
+        machine.add(action.cloneAction());
+        machine.updateButtons();
     }
     public void getPointTwo(Point2D p){
         AppAction action = menu.getAction();

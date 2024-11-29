@@ -96,6 +96,10 @@ public class MenuCreator extends MenuState {
         AppCommand moveC = new SwitchAction(state, new ActionMove(model));
         menuItems.add(new CommandActionListeners("Действие", moveIco, moveC));
 
+        URL redoUrl = getClass().getClassLoader().getResource("ico/redo.png");
+        ImageIcon redoIco = redoUrl == null ? null : new ImageIcon(moveUrl);
+        AppCommand redoC = new SwitchAction(state, );
+        menuItems.add(new CommandActionListeners("Действие", redoIco, redoC));
         return menuItems;
     }
     public JToolBar createToolBar()
@@ -207,14 +211,17 @@ public class MenuCreator extends MenuState {
     private JMenu createFillMenu() {
         JMenu fillMenu = new JMenu("Заливка");
         ButtonGroup group = new ButtonGroup();
+
         JRadioButtonMenuItem yes = new JRadioButtonMenuItem("Есть");
         yes.addActionListener(e -> state.setFill(true));
         fillMenu.add(yes);
         group.add(yes);
+
         JRadioButtonMenuItem no = new JRadioButtonMenuItem("Нет");
         no.addActionListener(e -> state.setFill(false));
         fillMenu.add(no);
         group.add(no);
+
         return fillMenu;
     }
 
