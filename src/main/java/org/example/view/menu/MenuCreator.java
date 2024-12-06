@@ -105,12 +105,18 @@ public class MenuCreator extends MenuState {
         URL redoUrl = getClass().getClassLoader().getResource("ico/redo_16x16.png");
         ImageIcon redoIco = redoUrl == null ? null : new ImageIcon(redoUrl);
         AppCommand redoC = new SwitchRedo(undoMachine);
-        menuItems.add(new CommandActionListeners("Вперед-назад", redoIco, redoC));
+        CommandActionListeners redoListeenr = new CommandActionListeners("Вперед-назад", redoIco, redoC);
+        menuItems.add(redoListeenr);
 
         URL undoUrl = getClass().getClassLoader().getResource("ico/undo_16x16.png");
         ImageIcon undoIco = undoUrl == null ? null : new ImageIcon(undoUrl);
         AppCommand undoC = new SwitchUndo(undoMachine);
-        menuItems.add(new CommandActionListeners("Вперед-назад", undoIco, undoC));
+        CommandActionListeners undoListener = new CommandActionListeners("Вперед-назад", undoIco, undoC);
+        menuItems.add(undoListener);
+        undoMachine.setUndo(undoListener);
+        undoListener.setEnabled(false);
+        undoMachine.setRedo(redoListeenr);
+        redoListeenr.setEnabled(false);
 
         return menuItems;
     }

@@ -43,4 +43,12 @@ public class UndoMachine {
         redo.setEnabled(isEnableRedo());
 
     }
+
+    public void setUndo(CommandActionListeners undo) {
+        this.undo = undo;
+    }
+
+    public void setRedo(CommandActionListeners redo) {
+        this.redo = redo;
+    }
 }
