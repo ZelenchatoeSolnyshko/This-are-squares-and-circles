@@ -3,6 +3,7 @@ package org.example.view.menu;
 
 import org.example.controller.ActionDraw;
 import org.example.controller.ActionMove;
+import org.example.controller.state.UndoMachine;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.MenuState;
@@ -37,6 +38,7 @@ public class MenuCreator extends MenuState {
     }
 
     private MyShape shape;
+    private UndoMachine undoMachine;
 
     private JRadioButtonMenuItem rgbButton;
 
@@ -96,10 +98,15 @@ public class MenuCreator extends MenuState {
         AppCommand moveC = new SwitchAction(state, new ActionMove(model));
         menuItems.add(new CommandActionListeners("Действие", moveIco, moveC));
 
-        URL redoUrl = getClass().getClassLoader().getResource("ico/redo.png");
-        ImageIcon redoIco = redoUrl == null ? null : new ImageIcon(moveUrl);
-        AppCommand redoC = new SwitchAction(state, );
-        menuItems.add(new CommandActionListeners("Действие", redoIco, redoC));
+        URL redoUrl = getClass().getClassLoader().getResource("ico/redo_16x16.png");
+        ImageIcon redoIco = redoUrl == null ? null : new ImageIcon(redoUrl);
+        AppCommand redoC = new SwitchRedo(undoMachine);
+        menuItems.add(new CommandActionListeners("Вперед", redoIco, redoC));
+
+        URL undoUrl = getClass().getClassLoader().getResource("ico/undo_16x16.png");
+        ImageIcon undoIco = undoUrl == null ? null : new ImageIcon(undoUrl);
+        AppCommand undoC = new SwitchUndo(undoMachine);
+        menuItems.add(new CommandActionListeners("Назад", undoIco, undoC));
         return menuItems;
     }
     public JToolBar createToolBar()
