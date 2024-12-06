@@ -55,9 +55,11 @@ public class Controller extends MenuState {
         model.addObserver(panel);
         frame = new MyFrame();
         frame.setPanel(panel);
+        machine = new UndoMachine();
         MenuCreator menuCreator = MenuCreator.getInstance();
         menuCreator.setState(menu);
         menuCreator.setModel(model);
+        menuCreator.setUndoMachine(machine);
         frame.setJMenuBar(menuCreator.createMenuBar());
         frame.add(menuCreator.createToolBar(), BorderLayout.WEST);
         frame.revalidate();
